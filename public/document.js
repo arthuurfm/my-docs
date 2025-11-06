@@ -11,7 +11,10 @@ documentTitle.textContent = documentName || 'Documento sem título';
 selectedDocument(documentName);
 
 editorText.addEventListener('keyup', () => {
-  emitTypedText(editorText.value);
+  emitTypedText({
+    text: editorText.value,
+    documentName
+  });
 });
 
 function updateTypedText(text) {
