@@ -14,6 +14,15 @@ class DocumentDb extends Database {
     const documents = this.#getDocumentsList().find().toArray();
     return documents;
   }
+  
+  addDocument(name) {
+    const result = this.#getDocumentsList().insertOne({
+      name,
+      text: ''
+    });
+
+    return result;
+  }
 
   findDocument(name) {
     const document = this.#getDocumentsList().findOne({ name });
