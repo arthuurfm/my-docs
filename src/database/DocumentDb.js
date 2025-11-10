@@ -1,0 +1,34 @@
+import Database from "./Database.js";
+
+class DocumentDb extends Database {
+  constructor (documentsList) {
+    super();
+    this.documentsList = documentsList;
+  }
+
+  #getDocumentsList() {
+    return this.documentsList = this.database.collection('documents');
+  }
+
+  getDocuments() {
+    const documents = this.#getDocumentsList().find().toArray();
+    return documents;
+  }
+
+  findDocument(name) {
+    const document = this.#getDocumentsList().findOne({ name });
+    
+    return document;
+  }
+
+  updateDocument(name, text) {
+    const update = this.#getDocumentsList().updateOne(
+      { name }, 
+      { $set: { text } }
+    );
+
+    return update;
+  }
+}
+
+export default DocumentDb;
