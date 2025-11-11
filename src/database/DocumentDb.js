@@ -38,6 +38,11 @@ class DocumentDb extends Database {
 
     return update;
   }
+
+  deleteDocument(name) {
+    const deleted = this.#getDocumentsList().deleteOne({ name });
+    return deleted;
+  }
 }
 
 export default DocumentDb;

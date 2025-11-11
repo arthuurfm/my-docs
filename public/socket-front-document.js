@@ -1,4 +1,4 @@
-import { updateTypedText } from "./document.js";
+import { alertAndRedirect, updateTypedText } from "./document.js";
 
 const socket = io();
 
@@ -22,4 +22,12 @@ socket.on('client_typed_text', (text) => {
   updateTypedText(text);
 });
 
-export { emitTypedText, selectedDocument };
+function deleteDocument(name) {
+  socket.emit('delete_document', name);
+}
+
+socket.on('document_successfully_deleted', (name) => {
+  alertAndRedirect(name);
+});
+
+export { emitTypedText, selectedDocument , deleteDocument };

@@ -15,10 +15,16 @@ function insertDocumentLink(name) {
     <a 
       href="documento.html?nome=${name}" 
       class="list-group-item list-group-item-action"
+      id="document-${name}"
     >
       ${name}
     </a>
   `;
 }
 
-export default insertDocumentLink;
+function removeDocumentLink(name) {
+  const deletedDocument = document.getElementById(`document-${name}`);
+  documentsList.removeChild(deletedDocument);
+}
+
+export { insertDocumentLink, removeDocumentLink };

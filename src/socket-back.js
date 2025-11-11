@@ -15,7 +15,7 @@ io.on('connection', (socket) => {
       socket.emit('existing_document', name);
     } else {
       const result = await documents.addDocument(name);
-      if (result.acknowledged) io.emit('add_document_interface');
+      if (result.acknowledged) io.emit('add_document_interface', name);
     }
   });
 
@@ -34,5 +34,13 @@ io.on('connection', (socket) => {
       socket.to(documentName).emit('client_typed_text', text);
     }
   });
+
+  socket.on('delete_document', async (name) => {
+    const result = await documents.deleteDocument(name);
+    
+    if (result.deletedCount) {
+      io.emit('document_successfully_deleted', name);
+    }
+  })
 
 });
