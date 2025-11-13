@@ -1,4 +1,4 @@
-import { emitTypedText, selectedDocument, deleteDocument } from "./socket-front-document.js";
+import { emitTypedText, selectedDocument, deleteDocument } from './socket-front-document.js';
 
 const params = new URLSearchParams(window.location.search);
 const documentName = params.get('nome');
@@ -8,6 +8,7 @@ const documentTitle = document.getElementById('titulo-documento');
 const deleteButton = document.getElementById('excluir-documento');
 
 documentTitle.textContent = documentName || 'Documento sem título';
+document.title = `MyDocs | ${documentName}`;
 
 selectedDocument(documentName);
 
