@@ -1,4 +1,5 @@
 import Database from "./Database.js";
+import createHashAndSaltPassword from "../utils/createHashAndSaltPassword.js";
 
 class UserDb extends Database {
   constructor (userList) {
@@ -11,10 +12,9 @@ class UserDb extends Database {
   }
 
   registerUser({ user, password }) {
-    return this.#getUserList().insertOne({ 
-      user: user, 
-      password: password 
-    });
+    const { hashPassword, saltPassword } = createHashAndSaltPassword(password);
+
+    return this.#getUserList().insertOne({ user, hashPassword, saltPassword });
   }
 
   findUser(user) {
