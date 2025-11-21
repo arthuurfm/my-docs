@@ -1,8 +1,19 @@
-import { addDocument } from "./socket-front-index.js";
+import { addDocument } from './socket-front-index.js';
+import { getCookie, removeCookie } from './utils/cookies.js';
+
+const jwtToken = getCookie('jwtToken');
+console.log(jwtToken);
 
 const documentsList = document.getElementById('lista-documentos');
 const form = document.getElementById('form-adiciona-documento');
 const inputDocument = document.getElementById('input-documento');
+const logoutBtn = document.getElementById('botao-logout')
+
+logoutBtn.addEventListener('click', () => {
+  removeCookie('jwtToken');
+  alert('User successfully logged out!');
+  window.location.href = '/login/index.html';
+});
 
 form.addEventListener('submit', (event) => {
   event.preventDefault();
