@@ -1,7 +1,7 @@
 import { emitTypedText, selectedDocument, deleteDocument } from './socket-front-document.js';
 
 const params = new URLSearchParams(window.location.search);
-const documentName = params.get('nome');
+const documentName = params.get('name');
 
 const editorText = document.getElementById('editor-texto');
 const documentTitle = document.getElementById('titulo-documento');

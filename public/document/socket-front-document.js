@@ -1,6 +1,11 @@
-import { alertAndRedirect, updateTypedText } from "./document.js";
+import { alertAndRedirect, updateTypedText } from './document.js';
+import { getCookie } from '../utils/cookies.js';
 
-const socket = io();
+const socket = io('/users', {
+  auth: {
+    token: getCookie('jwtToken')
+  }
+});
 
 function selectedDocument(name) {
   socket.emit('selected_document', name, (text) => {
