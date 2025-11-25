@@ -1,4 +1,4 @@
-import { alertAndRedirect, updateTypedText } from './document.js';
+import { alertAndRedirect, updateTypedText, treatAuthorizationSuccess, updateUserInterface } from './document.js';
 import { getCookie } from '../utils/cookies.js';
 
 const socket = io('/users', {
@@ -7,11 +7,20 @@ const socket = io('/users', {
   }
 });
 
-function selectedDocument(name) {
-  socket.emit('selected_document', name, (text) => {
+socket.on('authorization_success', treatAuthorizationSuccess);
+
+function selectedDocument(inputData) {
+  socket.emit('selected_document', inputData, (text) => {
     updateTypedText(text);
   });
 }
+
+socket.on('user_already_on_document', () => {
+  alert('Document already open on another page.');
+  window.location.href = '/';
+});
+
+socket.on('users_on_document', updateUserInterface);
 
 // socket.emit: emite e cria um evento personalizado.
 function emitTypedText(data) {
